@@ -1,0 +1,31 @@
+Use constructor functions and prototypes only; do not use class.
+
+(a) Shape(name) stores name. Its prototype has the methods area() and perimeter(), which both return 0, describe(), which returns '<name>: area <area>, perimeter <perimeter>' with both numbers rounded to two decimals (toFixed(2)), and toString(), which returns the same text as describe() (so that String(shape) and `${shape}` work). Use the idiom from §16.6 so that Shape('Blob') also works without new.
+
+(b) Rectangle(width, height) inherits from Shape (its name is 'Rectangle') and overrides area() and perimeter(). Call the parent constructor with Shape.call(this, ...), create the prototype with Object.create, and set constructor back to Rectangle.
+
+(c) Circle(radius) inherits from Shape in the same way (its name is 'Circle').
+
+(d) Square(side) inherits from Rectangle (its name is 'Square') and must reuse area() and perimeter() of Rectangle instead of defining its own.
+
+(e) Triangle(a, b, c) inherits from Shape (its name is 'Triangle'). If the sides are not all positive, or do not satisfy the triangle inequality (each side shorter than the sum of the other two), the constructor throws new Error('Invalid triangle'). The area is computed with Heron's formula: with s = (a + b + c) / 2, the area is Math.sqrt(s * (s - a) * (s - b) * (s - c)).
+
+(f) Write totalArea(shapes), which returns the sum of the areas of an array of mixed shapes, and largest(shapes), which returns the shape with the largest area (null for an empty array).
+
+new Rectangle(3, 4).describe(); // 'Rectangle: area 12.00, perimeter 14.00'
+String(new Square(5));          // 'Square: area 25.00, perimeter 20.00'
+new Triangle(1, 2, 10);         // Error: Invalid triangle
+For example:
+
+Test	Result
+// (a)–(e) describe() of every shape
+console.log(new Rectangle(3, 4).describe());
+console.log(new Circle(1).describe());
+console.log(new Square(5).describe());
+console.log(new Triangle(3, 4, 5).describe());
+console.log(new Shape('Blob').describe());
+Rectangle: area 12.00, perimeter 14.00
+Circle: area 3.14, perimeter 6.28
+Square: area 25.00, perimeter 20.00
+Triangle: area 6.00, perimeter 12.00
+Blob: area 0.00, perimeter 0.00

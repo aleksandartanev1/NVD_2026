@@ -1,0 +1,47 @@
+The function main() below contains a small program. Hoisting works inside a function exactly as in the global code: every call of main() creates a new execution context, which goes through its own creation phase.
+
+function main() {
+  console.log(describe(item));
+  console.log(format(price));
+  console.log(total);
+  console.log(format(discount(total)));
+
+  var total = price * qty;
+  const format = function (amount) {
+    return amount.toFixed(2) + ' ' + currency;
+  };
+  let price = 9.5;
+  var item = 'Book';
+  var discount = function (amount) {
+    return amount > limit ? amount - amount * rate / 100 : amount;
+  };
+  const qty = 2;
+  let currency = 'EUR';
+  var limit = 15;
+  const rate = 10;
+
+  function describe(name) {
+    return 'Item: ' + name + ' x' + qty;
+  }
+}
+(a) Without running it, work out what happens when this main() is called. Be careful: describe is a function declaration, so calling it on the first line is not the problem. Then run it and check your answer. Store the answer in the object originalError of the starter code: the name of the error (e.g. 'SyntaxError'), the name of the variable that causes it, and how many lines main() prints before the error.
+
+(b) Rearrange the body of main() by moving whole lines only (do not change, add or delete any line; you may change the indentation) so that main() prints:
+
+Item: Book x2
+9.50 EUR
+19
+17.10 EUR
+The declaration of describe must stay at the bottom of main().
+
+(c) Suppose that, in your rearranged main(), only the three lines of var discount = function ... were still below the console.log lines. Which error would main() throw? Store its name in discountErrorName. Compare it with the error that format causes in the same situation: why are they different?
+
+For example:
+
+Test	Result
+// (b) the rearranged main()
+main();
+Item: Book x2
+9.50 EUR
+19
+17.10 EUR

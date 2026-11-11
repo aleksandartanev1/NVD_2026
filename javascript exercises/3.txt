@@ -1,0 +1,32 @@
+The starter code contains a small in-memory "database" db. Write the following functions:
+
+(a) delay(ms, value) returns a Promise that resolves with value after ms milliseconds (use setTimeout).
+
+(b) getUser(id) uses new Promise(...) and resolves after 50 ms with the user from db.users. If there is no such user, it rejects with new Error(`User ${id} not found`).
+
+(c) getPosts(userId) resolves after 50 ms with the posts array of the user (or [] if there are none). Use delay.
+
+(d) getSummaryThen(id) uses only .then / .catch (no async / await). It resolves with 'Ana has 2 posts', or, if anything fails, with 'Error: <message>'. The returned promise never rejects.
+
+(e) getSummaryAsync(id) does the same as (d) with async / await and try / catch.
+
+(f) getSummaries(ids) is an async function that returns an array with the summaries of all the users, in the same order as ids, loading them one after another with getSummaryAsync.
+
+(g) getSummariesParallel(ids) returns the same array, but loads all the users at the same time, so it takes about as long as a single summary. Promise.all is not in the lecture: Promise.all(arrayOfPromises) returns a promise that resolves with an array of all the results, in the same order, once every promise has resolved.
+
+(h) retry(fn, attempts) is an async function that calls the async function fn (without arguments). If the promise returned by fn rejects, it tries again, up to attempts calls in total. It resolves with the first successful result, or rejects with the last error if all the attempts fail. Hint: inside try, write return await fn(); without await, a rejection would not be caught by your catch.
+
+getSummaryThen(1).then(console.log);   // Ana has 2 posts
+getSummaryAsync(3).then(console.log);  // Error: User 3 not found
+getSummariesParallel([1, 2]).then(console.log); // ['Ana has 2 posts', 'Bojan has 0 posts'] after ~100 ms
+For example:
+
+Test	Result
+// (a) delay
+const start = Date.now();
+delay(100, 'done').then(value => {
+  console.log(value);
+  console.log(Date.now() - start >= 90);
+});
+done
+true

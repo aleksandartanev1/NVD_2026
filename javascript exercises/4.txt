@@ -1,0 +1,26 @@
+(a) Write a function countFalsy(values) that returns how many elements of the array values are falsy. Hint: use each element in a boolean context, e.g. if (!value).
+
+(b) The function below sets default values with ||, as shown in §8.3 and §12.4:
+
+function createPlayer(name, lives, volume) {
+  name = name || 'Anonymous';
+  lives = lives || 3;
+  volume = volume || 50;
+  return name + ' | lives: ' + lives + ' | volume: ' + volume;
+}
+
+console.log(createPlayer('Ana', 0, 0)); // should print "Ana | lives: 0 | volume: 0"
+The output is wrong, because 0 is falsy. Fix the function so that a default is used only when the argument is missing (undefined). Do not use ||, and do not use ES6 default parameters yet; they come in §17.2.
+
+(c) Write a function coalesce() without declared parameters. Using arguments, it returns the first argument that is neither null nor undefined, or undefined if there is no such argument. Unlike ||, it must keep falsy values such as 0, '' and false.
+
+countFalsy([0, 'hello', '', null, 42]); // 3
+coalesce(null, undefined, 0, 5);        // 0
+0 || 5;                                 // 5
+For example:
+
+Test	Result
+// (a) countFalsy
+console.log(countFalsy([0, '0', '', [], {}, null, undefined, NaN, -0, 0n, 'false', false]));
+console.log(countFalsy([]));
+console.log(countFalsy([1, 'a', [], {}]));

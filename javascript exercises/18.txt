@@ -1,0 +1,61 @@
+Rewrite the ES5 function below in modern JavaScript. For the calls in the tests it must behave exactly as before.
+
+use const / let instead of var;
+make createTeam and all the callbacks arrow functions;
+use the shorthand syntax for properties and methods;
+use template literals instead of string concatenation;
+use default parameters instead of the || defaults, a rest parameter instead of arguments, the spread operator instead of slice(), and for...of instead of the index loop;
+do not use self = this.
+Careful: the methods addMembers, setLead, introduce and summary need this to be the team object, and an arrow function has no this of its own. So write them with the method shorthand, not as arrow functions.
+
+var createTeam = function (name, members) {
+  members = members || [];
+  return {
+    name: name,
+    members: members.slice(),
+    lead: null,
+    addMembers: function () {
+      for (var i = 0; i < arguments.length; i++) {
+        if (this.members.indexOf(arguments[i]) === -1) {
+          this.members.push(arguments[i]);
+        }
+      }
+      return this;
+    },
+    setLead: function (member) {
+      this.lead = member;
+      return this;
+    },
+    introduce: function () {
+      var self = this;
+      return this.members.map(function (m, i) {
+        var role = m === self.lead ? 'lead' : 'member';
+        return (i + 1) + '. ' + m + ' (' + role + ' of ' + self.name + ')';
+      });
+    },
+    summary: function (separator) {
+      separator = separator || ', ';
+      return 'Team ' + this.name + ' [' + this.members.join(separator) + '], lead: ' + (this.lead || 'none');
+    }
+  };
+};
+Example:
+
+const team = createTeam('Frontend', ['Ana', 'Bojan']);
+team.addMembers('Ivana', 'Ana').setLead('Bojan');
+team.summary(' | '); // 'Team Frontend [Ana | Bojan | Ivana], lead: Bojan'
+For example:
+
+Test	Result
+// members, addMembers, setLead, introduce and summary
+const team = createTeam('Frontend', ['Ana', 'Bojan']);
+console.log(team.summary());
+team.addMembers('Ivana', 'Ana', 'Dejan').setLead('Bojan');
+console.log(team.introduce().join('\n'));
+console.log(team.summary(' | '));
+Team Frontend [Ana, Bojan], lead: none
+1. Ana (member of Frontend)
+2. Bojan (lead of Frontend)
+3. Ivana (member of Frontend)
+4. Dejan (member of Frontend)
+Team Frontend [Ana | Bojan | Ivana | Dejan], lead: Bojan

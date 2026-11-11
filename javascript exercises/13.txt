@@ -1,0 +1,29 @@
+Implement the functions below without the built-in map, filter, reduce and forEach methods. Use for loops and call the callback functions yourself.
+
+(a) myMap(array, fn) returns a new array with the results of fn(element, index, array).
+
+(b) myFilter(array, fn) returns a new array with the elements for which fn(element, index, array) returns a truthy value.
+
+(c) myReduce(array, fn, initial) reduces the array to one value, calling fn(accumulator, element, index, array). If initial is not passed (check arguments.length), the first element is the initial accumulator and the loop starts at index 1. For an empty array without an initial value, throw new TypeError('Reduce of empty array with no initial value'), as the built-in method does.
+
+(d) pipe() has no declared parameters: it receives any number of functions and returns a new function x => ... that passes x through all of them from left to right, so pipe(f, g, h)(x) is h(g(f(x))). pipe() without functions returns x unchanged. Implement it with arguments and myReduce. Careful: the returned function has its own arguments object.
+
+(e) groupBy(array, keyFn) returns an object that maps every key returned by keyFn(element) to the array of the elements with that key, in their original order. Implement it with myReduce and the computed member access operator.
+
+myMap([1, 2, 3], function (n) { return n * 10; });            // [10, 20, 30]
+myFilter([1, 2, 3, 4], function (n) { return n % 2 === 0; });  // [2, 4]
+myReduce([1, 2, 3], function (acc, n) { return acc + n; }, 0); // 6
+pipe(function (n) { return n + 1; }, function (n) { return n * 2; })(5); // 12
+groupBy(['ant', 'bee', 'ape'], function (w) { return w[0]; });  // { a: ['ant', 'ape'], b: ['bee'] }
+For example:
+
+Test	Result
+// (a) myMap
+console.log(JSON.stringify(myMap([1, 2, 3], function (n) { return n * 10; })));
+console.log(JSON.stringify(myMap(['a', 'b'], function (s, i) { return s + i; })));
+console.log(JSON.stringify(myMap([7, 8], function (n, i, arr) { return arr.length; })));
+console.log(JSON.stringify(myMap([], function (n) { return n; })));
+[10,20,30]
+["a0","b1"]
+[2,2]
+[]

@@ -1,0 +1,24 @@
+(a) Write a function wordFrequency(text) that returns an object which maps every word to the number of times it appears. Words are compared in lowercase, they may be separated by more than one space, and the characters . , ! ? are ignored. The first line of the function is given; it returns an array of words. Use the computed member access operator ([]) to create and increase the counters.
+
+(b) Write a function topWords(text, n) that returns the n most frequent words as an array of [word, count] pairs, sorted by count (highest first); words with the same count are sorted alphabetically. Use wordFrequency.
+
+(c) Write a function getByPath(obj, path, defaultValue) that reads a nested property given as a dot-separated path, e.g. getByPath(person, 'address.city'). Array indexes work as well ('orders.0.id'), because arrays are objects too. If any part of the path is missing, return defaultValue (which is undefined when it is not passed) instead of throwing an error.
+
+(d) Write a function setByPath(obj, path, value) that sets a nested property and creates the missing intermediate objects on the way. It returns obj.
+
+(e) Write a recursive function flattenObject(obj) that turns nested plain objects into one flat object with dot-separated keys. Arrays and null are values; they are not flattened.
+
+wordFrequency('The cat and the hat');      // { the: 2, cat: 1, and: 1, hat: 1 }
+topWords('b a c a b', 2);                  // [['a', 2], ['b', 2]]
+getByPath({ a: [{ b: 42 }] }, 'a.0.b');    // 42
+getByPath({}, 'x.y', 'none');              // 'none'
+setByPath({}, 'ui.theme', 'dark');         // { ui: { theme: 'dark' } }
+flattenObject({ a: { b: 1 }, c: [2] });    // { 'a.b': 1, c: [2] }
+For example:
+
+Test	Result
+// (a) wordFrequency
+console.log(JSON.stringify(wordFrequency('The cat and the hat.  The END!')));
+console.log(JSON.stringify(wordFrequency('Hello')));
+{"the":3,"cat":1,"and":1,"hat":1,"end":1}
+{"hello":1}

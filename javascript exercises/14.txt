@@ -1,0 +1,24 @@
+A post office hands out numbered tickets for several counters. Create the namespace App with var App = App || {}; (it reuses the object if another file has already created it). Then use an IIFE to create the module App.TicketCounter. All the state must be private: it can only be reached through these four methods.
+
+next(prefix) returns the next ticket for the given prefix letter, e.g. 'A001', 'A002', … (hint: String(n).padStart(3, '0')). The prefix is optional and defaults to 'A'. Every prefix has its own numbering, and after 999 the numbering of that prefix starts again from 001.
+issued(prefix) returns how many tickets have been issued for that prefix (an unknown prefix gives 0); without an argument it returns the total for all prefixes.
+history() returns all tickets issued so far, in order. It returns a copy: changing the returned array must not change the module.
+reset() clears everything.
+App.TicketCounter.next();     // 'A001'
+App.TicketCounter.next('B');  // 'B001'
+App.TicketCounter.next();     // 'A002'
+App.TicketCounter.issued();   // 3
+App.TicketCounter.counters;   // undefined -- private!
+For example:
+
+Test	Result
+// next() and issued() with the default prefix A
+App.TicketCounter.reset();
+console.log(App.TicketCounter.next());
+console.log(App.TicketCounter.next());
+console.log(App.TicketCounter.next());
+console.log(App.TicketCounter.issued());
+A001
+A002
+A003
+3

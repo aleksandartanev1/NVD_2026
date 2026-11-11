@@ -1,0 +1,22 @@
+(a) Write sumAll() without declared parameters: it sums all of its arguments that are numbers, using arguments. Then write sumRest(...numbers) as an arrow function that does the same with a rest parameter, filter and reduce.
+
+(b) Write formatUser(user) that destructures its parameter in the parameter list, including the nested address object, with the defaults name = 'Anonymous', age = 'N/A', city = 'Skopje' and country = 'MK'. It returns '<name> (<age>), <city>, <country>'. It must work for a user without an address, and for formatUser() called with no argument at all.
+
+(c) Write mergeSettings(defaults, ...overrides) that returns a new object with the settings of all the objects merged from left to right (later objects win). When a property is a plain object on both sides, the two objects are merged recursively instead of replaced. None of the inputs may change. Use the object spread operator.
+
+(d) Write headAndTail(array) that returns { head, tail }: the first element, and an array with all the other elements. Use array destructuring with a rest element, and the property shorthand.
+
+(e) Write withoutPassword(user) that returns a copy of user without the password property, using object destructuring with a rest property. Then write omit(obj, ...keys) that returns a copy of obj without any of the given keys. The original objects must not change.
+
+formatUser({ name: 'Ana', age: 25, address: { city: 'Bitola' } }); // 'Ana (25), Bitola, MK'
+mergeSettings({ ui: { theme: 'light', font: 14 } }, { ui: { theme: 'dark' } });
+// { ui: { theme: 'dark', font: 14 } }
+omit({ a: 1, b: 2, c: 3 }, 'a', 'c'); // { b: 2 }
+For example:
+
+Test	Result
+// (a) sumAll and sumRest add only numbers
+console.log(sumAll(1, 2, 3), sumAll(), sumAll(1, '2', 3, null));
+console.log(sumRest(10, 20, 30, 40), sumRest(), sumRest(10, '20', undefined, 5));
+6 0 4
+100 0 15

@@ -1,0 +1,24 @@
+typeof is the usual way to test the type of a value, but some of its answers are surprising: typeof null is 'object', typeof [] is 'object' and typeof NaN is 'number'.
+
+(a) Write a function getType(value) that returns a more precise type name:
+
+'null' for null, and 'nan' for NaN;
+for objects (typeof value === 'object'), the internal tag from §15 in lowercase: Object.prototype.toString.call(value) returns e.g. '[object Date]', so the result is 'date'. Arrays give 'array', regular expressions 'regexp', maps 'map' and plain objects 'object';
+the result of typeof for every other value.
+(b) Write a function typeSummary(values) that uses getType and returns how many values of each type the array contains, with the types in the order in which they first appear.
+
+(c) Write a function isEmpty(value) that returns true for null, undefined, a string that is empty or contains only spaces, an empty array, and a plain object without properties (hint: Object.keys). For every other value, including 0 and false, it returns false.
+
+getType([1, 2, 3]);                 // 'array'
+getType(new Date());                // 'date'
+typeSummary([1, 'a', 2, null]);     // 'number: 2, string: 1, null: 1'
+isEmpty('   ');                     // true
+isEmpty(0);                         // false
+For example:
+
+Test	Result
+// (a) getType: primitive values
+console.log(getType(42), getType('42'), getType(true), getType(undefined));
+console.log(getType(10n), getType(Symbol('id')), getType(Infinity));
+number string boolean undefined
+bigint symbol number

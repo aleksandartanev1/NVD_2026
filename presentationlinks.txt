@@ -1,0 +1,6 @@
+01. Јаваскрипт и DOM / Javascript and DOM [05-Oct-2026] https://designftw.mit.edu/lectures/javascript/#intro
+02. Настани / Events [19-Oct-2026] https://designftw.mit.edu/lectures/dom-events/#intro
+03. Функции, класи / Functions, classes [22-Oct-2026] https://designftw.mit.edu/lectures/functions/#intro
+04. Асинхроно програмирање во JavaScript / Asynchronous programming in JavaScript [26-Oct-2026]
+Completion requirements
+Потребно е да се помине материјалот до слајд 67. Делот со Graffiti не е потребно да се помине. https://designftw.mit.edu/lectures/async/#intro

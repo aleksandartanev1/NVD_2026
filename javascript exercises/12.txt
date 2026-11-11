@@ -1,0 +1,41 @@
+The following code should print the products of the shop, but it prints undefined instead of the shop name. The callback passed to forEach is called as a plain function, not as a method of shop, so inside it this is not the shop:
+
+var shop = {
+  name: 'Corner Shop',
+  products: ['milk', 'bread'],
+  printProducts: function () {
+    this.products.forEach(function (product, i) {
+      console.log((i + 1) + '. ' + product + ' @ ' + this.name);
+    });
+  }
+};
+
+var market = { name: 'Green Market', products: ['carrots', 'honey'] };
+
+shop.printProducts(); // 1. milk @ undefined ...
+(a) Fix printProducts with the self = this technique.
+
+(b) Add a second method printProductsBound that fixes the same problem with bind instead.
+
+(c) Write a function printFor(store) that prints the products of any store object by borrowing shop.printProducts with call. Do not copy the method into the store object.
+
+(d) Write a function makePrinter(store) that returns a function with no parameters which prints the products of store. It must keep working when it is passed around as a callback, e.g. setTimeout(makePrinter(market), 0). Use bind.
+
+(e) Add a method addProducts() to shop without declared parameters: it adds all of its arguments to this.products and returns this, so that calls can be chained: shop.addProducts('eggs', 'jam').addProducts('tea').
+
+(f) Write a function restock(store, items) that adds the array items to any store by borrowing shop.addProducts with apply.
+
+Expected output of shop.printProducts():
+
+1. milk @ Corner Shop
+2. bread @ Corner Shop
+For example:
+
+Test	Result
+// (a) printProducts and (b) printProductsBound
+shop.printProducts();
+shop.printProductsBound();
+1. milk @ Corner Shop
+2. bread @ Corner Shop
+1. milk @ Corner Shop
+2. bread @ Corner Shop

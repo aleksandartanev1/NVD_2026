@@ -1,0 +1,30 @@
+(a) Write a function once(fn) that returns a new function. The new function calls fn only the first time it is called, passing along all of its arguments and its this (hint: fn.apply(this, arguments)). Every later call returns the result of the first call without calling fn again.
+
+(b) Write a function memoize(fn) that caches the results of fn in an object (use computed member access, §13.1). The cache key is JSON.stringify of the array of all arguments, so the function may have any number of arguments. When the memoized function is called with arguments it has already seen, it returns the cached result without calling fn. Careful: a cached result can be 0 or '', which are falsy, so do not test the cache with if (cache[key]).
+
+Functions are objects (§12), so give the memoized function two methods of its own: size() returns the number of cached results and clear() empties the cache.
+
+(c) Write a function createButtons(labels) that returns an array of button objects { label, click }. Every button counts its own clicks: calling click() on the k-th button (counting from 1) for the n-th time returns 'Clicked <label> (#k), total clicks: n'. You must loop with var (it is legacy code), so use a factory function like createFunction in §14.1 to lock in the values.
+
+const slowAdd = memoize(function (a, b) { return a + b; });
+slowAdd(1, 2); // 3 (computed)
+slowAdd(1, 2); // 3 (from the cache)
+slowAdd.size(); // 1
+
+const buttons = createButtons(['Save', 'Open']);
+buttons[1].click(); // 'Clicked Open (#2), total clicks: 1'
+For example:
+
+Test	Result
+// (a) once calls fn only the first time
+let initCount = 0;
+const init = once(function (name) {
+  initCount++;
+  return 'Initialised ' + name;
+});
+console.log(init('db'));
+console.log(init('cache'));
+console.log('init called ' + initCount + ' time(s)');
+Initialised db
+Initialised db
+init called 1 time(s)

@@ -1,0 +1,22 @@
+(a) A rain gauge sends an array of readings in millimetres. Write a function analyseReadings(readings) that uses a for loop and returns an object { sum, count, max, average }:
+
+skip (continue) every reading that is not a number, or is NaN (for example null, 'ERR', NaN);
+stop (break) at the first negative reading: rainfall cannot be negative, so the gauge is broken from that point on;
+count is the number of readings that were added to sum, and max is the largest of them;
+average is rounded to two decimals (hint: Math.round(x * 100) / 100);
+if no reading was added, max and average are null.
+(b) Write a function countDigits(n) that returns the number of digits of an integer n (negative numbers too), using a do...while loop. Hint: the body of a do...while loop always runs at least once, and countDigits(0) is 1.
+
+(c) Write a function primesUpTo(n) that returns an array with all prime numbers up to and including n. Use two nested loops. The inner loop only has to try divisors d while d * d <= candidate, and it must stop (break) as soon as it finds one.
+
+analyseReadings([2, 'ERR', 3, -1, 10]); // { sum: 5, count: 2, max: 3, average: 2.5 }
+countDigits(-305);                      // 3
+primesUpTo(10);                         // [2, 3, 5, 7]
+For example:
+
+Test	Result
+// (a) analyseReadings: invalid readings are skipped
+console.log(JSON.stringify(analyseReadings([2, 4.5, 'ERR', 0, null, 3.5, NaN, 1])));
+console.log(JSON.stringify(analyseReadings([1, 2, 2])));
+{"sum":11,"count":5,"max":4.5,"average":2.2}
+{"sum":5,"count":3,"max":2,"average":1.67}

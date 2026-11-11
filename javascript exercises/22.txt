@@ -1,0 +1,24 @@
+(a) Write a generator range(start, end, step = 1) that yields start, start + step, … up to, but not including, end. A negative step counts down. If step is 0, throw new RangeError('step must not be 0').
+
+(b) Write an infinite generator fibonacci() that yields 0, 1, 1, 2, 3, 5, 8, …
+
+(c) Write a generator take(iterable, n) that yields the first n values of any iterable (an array, a string, another generator, even an infinite one) and then stops, without reading more values than it needs.
+
+(d) Write the lazy generators mapIter(iterable, fn) and filterIter(iterable, predicate): they work like map and filter, but on any iterable, and compute each value only when it is requested. Thanks to laziness, take(filterIter(fibonacci(), isEven), 5) finishes even though fibonacci() never ends.
+
+(e) Write createPlaylist(name, songs) that returns an object which can be used in for...of and with the spread operator. Iterating over it gives '1. <song>', '2. <song>', … Implement this iterator protocol by hand: [Symbol.iterator]() returns an object with a next() method, as in the fibonacci example of §17.6. Do not use a generator for it. The playlist also has a method backwards() that returns an iterable going from the last song to the first (with the original numbers); here you may use a generator.
+
+[...range(0, 5)];                        // [0, 1, 2, 3, 4]
+[...take(fibonacci(), 5)];               // [0, 1, 1, 2, 3]
+[...mapIter([1, 2, 3], n => n * n)];     // [1, 4, 9]
+[...createPlaylist('Mix', ['A', 'B'])];  // ['1. A', '2. B']
+For example:
+
+Test	Result
+// (a) range
+console.log(JSON.stringify([...range(0, 5)]), JSON.stringify([...range(1, 10, 3)]));
+console.log(JSON.stringify([...range(10, 0, -3)]), JSON.stringify([...range(5, 5)]));
+console.log(JSON.stringify([...range(0, 1, 0.25)]));
+[0,1,2,3,4] [1,4,7]
+[10,7,4,1] []
+[0,0.25,0.5,0.75]

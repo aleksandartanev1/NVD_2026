@@ -1,0 +1,27 @@
+Write a function calculate(operator, a, b) that supports the operators '+', '-', '*', '/', '%' and '**'.
+
+The operands may arrive as strings (for example, read from a form): calculate('+', '2', '3') must return 5, not '23'. Convert them with Number() or the unary plus operator.
+Check the errors in this order, and return the error message as a string:
+an operand that is not a valid number after conversion: 'Invalid number';
+an unknown operator: 'Unknown operator';
+'/' or '%' by zero: 'Division by zero' (use the ternary operator).
+(a) Implement calculate with a switch statement.
+
+(b) Implement calculateLookup(operator, a, b) with exactly the same behaviour, but without switch and without an else if chain: store the operations in an object whose properties are functions, like the stuffToDo object in §6.4. Careful: every object inherits properties such as toString, so calculateLookup('toString', 1, 2) must still return 'Unknown operator' (hint: hasOwnProperty).
+
+(c) Write a function evaluateChain(expression) that evaluates an expression like a pocket calculator: strictly from left to right, without operator precedence. The tokens are separated by single spaces, e.g. '2 + 3 * 4' gives 20 (2 + 3 = 5, then 5 * 4 = 20). Use calculateLookup for every step and return the first error message it produces. An empty expression, or one with a missing operand, returns 'Invalid expression'.
+
+calculate('**', '2', 10);       // 1024
+calculate('%', 7, 0);           // 'Division by zero'
+evaluateChain('10 / 4 - 0.5');  // 2
+evaluateChain('1 +');           // 'Invalid expression'
+For example:
+
+Test	Result
+// (a) calculate: valid operations
+console.log(calculate('+', 2, 3), calculate('-', '10', 4), calculate('*', '6', '7'));
+console.log(calculate('+', '2', '3'), calculate('%', 17, 5), calculate('**', '2', 10));
+console.log(calculate('/', 10, 4));
+5 6 42
+5 2 1024
+2.5

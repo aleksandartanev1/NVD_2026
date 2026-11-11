@@ -1,0 +1,24 @@
+The starter code contains an array of students. Write the functions below as arrow functions, using map, filter, reduce and sort; no for / while loops and no forEach. Every function receives the array of students as a parameter, and none of them may change it.
+
+(a) toGrade(points) converts points into a grade: below 50 → 5, 50–59 → 6, 60–69 → 7, 70–79 → 8, 80–89 → 9, 90 and above → 10.
+
+(b) passedNames(students) returns the names of the students with at least 50 points.
+
+(c) averagePoints(students) returns the average number of points rounded to two decimals, or 0 for an empty array.
+
+(d) withGrades(students) returns a new array in which every student also has a grade property. Use the object spread operator; the original objects must not change.
+
+(e) bestStudent(students) returns the student object with the most points, or null for an empty array.
+
+(f) countByCourse(students) returns an object with the number of students per course, e.g. { Web: 3, OOP: 3, Databases: 2 }.
+
+(g) rankStudents(students) returns the names sorted by points (highest first); students with the same points are sorted by name. Hint: sort changes the array it is called on, so sort a copy ([...students]).
+
+(h) courseReport(students) returns one line per course, sorted by course name, in this format: '<course>: <n> student(s), average <average with 2 decimals>, best <name>, passed <passed>/<n>'. Reuse the functions above.
+
+For example:
+
+Test	Result
+// (a) toGrade
+console.log(toGrade(45), toGrade(50), toGrade(59), toGrade(69), toGrade(89), toGrade(90), toGrade(100));
+5 6 6 7 9 10 10

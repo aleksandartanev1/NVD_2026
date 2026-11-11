@@ -1,0 +1,25 @@
+(a) Write receiptLine(item, qty, price) with a template literal. It returns, for example, '3 x Coffee = 4.50 EUR' (the total is rounded to two decimals).
+
+(b) Write a tag function html that makes interpolated values safe to insert into a web page. Every interpolated value (but not the fixed text of the template) is converted to a string and escaped: & → &amp;, < → &lt;, > → &gt;, " → &quot;, ' → &#39;. If a value is an array, each element is escaped and the results are joined without a separator. Hint: one replace with the regular expression /[&<>"']/g and a lookup object (§13.1) escapes all five characters in one pass.
+
+(c) Write a tag function currency that formats every interpolated number with two decimals followed by ' EUR', and leaves values of other types unchanged.
+
+(d) Write receipt(items), where items is an array of { name, qty, price } objects. It returns a multi-line string with one line per item, then a line of 35 dashes, then the total. Build every line with a template literal (no string concatenation with +):
+
+item line: the name padded to 12 characters (padEnd), the quantity padded to 3 (padStart), ' x ', the price with two decimals padded to 6, ' = ', and the line total with two decimals padded to 8;
+total line: 'TOTAL' padded to 27 characters (padEnd), then the total with two decimals padded to 8.
+const comment = '<b>hi</b>';
+html`<p>${comment}</p>`;            // '<p>&lt;b&gt;hi&lt;/b&gt;</p>'
+currency`${'Tea'} costs ${1.5}`;    // 'Tea costs 1.50 EUR'
+console.log(receipt([{ name: 'Coffee', qty: 3, price: 1.5 }]));
+// Coffee        3 x   1.50 =     4.50
+// -----------------------------------
+// TOTAL                          4.50
+For example:
+
+Test	Result
+// (a) receiptLine
+console.log(receiptLine('Coffee', 3, 1.5));
+console.log(receiptLine('Croissant', 2, 1.25));
+3 x Coffee = 4.50 EUR
+2 x Croissant = 2.50 EUR

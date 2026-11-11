@@ -1,0 +1,24 @@
+Values read from forms arrive as strings, and type coercion has traps: Number('') is 0, Number(null) is 0, Number([]) is 0, Number('12px') is NaN (while parseInt('12px') is 12) and '10' + 5 is '105'.
+
+(a) Write a function parseScore(input) that turns an exam score into a number, or returns null when the input is not a valid score:
+
+if input is a number, use it as it is;
+if input is a string, trim the spaces around it and accept a decimal comma as well as a decimal point ('7,5' is 7.5). An empty string gives null; otherwise convert it with Number();
+any other type (null, undefined, a boolean, an array, an object, …) gives null;
+a valid score is a number from 0 to 100; NaN and numbers outside this range give null.
+(b) Write a function scoreReport(inputs) that uses parseScore and returns an object { valid, invalid, total, average, best }: the number of valid and invalid inputs, the sum and the average of the valid scores (average rounded to two decimals), and the best score. When there are no valid scores, average and best are null.
+
+Use only the strict comparison operators (=== and !==) in both functions.
+
+parseScore(' 7,5 '); // 7.5
+parseScore('');      // null
+parseScore('101');   // null
+scoreReport(['10', 5, '', 'x']); // { valid: 2, invalid: 2, total: 15, average: 7.5, best: 10 }
+For example:
+
+Test	Result
+// (a) parseScore: valid scores
+console.log(parseScore('42'), parseScore(' 7 '), parseScore(15), parseScore('2.5'));
+console.log(parseScore('7,5'), parseScore('100'), parseScore('0'), parseScore(0));
+42 7 15 2.5
+7.5 100 0 0

@@ -1,0 +1,30 @@
+A student is stored as an object:
+
+const ana = { name: 'Ana', grades: [8, 9] };
+(a) Write a function withGrade(student, grade) that returns a new student object with grade added at the end of the grades. The original object and its grades array must not change. Do not use the spread operator yet; use concat (§9), which returns a new array.
+
+(b) Write a function clearGrades(student) that removes all grades in place: every variable that refers to the same grades array must see an empty array afterwards. This version does not work, because the assignment only changes the local parameter student, not the caller's object:
+
+function clearGradesWrong(student) {
+  student = { name: student.name, grades: [] };
+}
+(c) Write a recursive function deepClone(value) that copies plain objects and arrays at every level of nesting, so that changing the copy never changes the original. Other values (primitives) are returned as they are. Do not use JSON.
+
+(d) Write a recursive function deepEqual(a, b) that compares two values by content: === only tells whether two objects are the same reference. Arrays and plain objects are equal when they have the same keys with deeply equal values; an array is never equal to an object. Two NaN values count as equal.
+
+const copy = deepClone({ a: { b: [1, 2] } });
+deepEqual(copy, { a: { b: [1, 2] } });   // true
+copy === { a: { b: [1, 2] } };           // false
+deepEqual([1, 2], { 0: 1, 1: 2 });       // false
+For example:
+
+Test	Result
+// (a) withGrade returns a new object and does not change the original
+const ana = { name: 'Ana', grades: [8, 9] };
+const updated = withGrade(ana, 10);
+console.log(JSON.stringify(updated));
+console.log(JSON.stringify(ana));
+console.log(updated === ana, updated.grades === ana.grades);
+{"name":"Ana","grades":[8,9,10]}
+{"name":"Ana","grades":[8,9]}
+false fals

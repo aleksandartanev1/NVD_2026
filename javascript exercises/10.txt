@@ -1,0 +1,38 @@
+Every function call creates a new execution context with its own variable environment, and pushes it on the execution stack. Recursive functions make this easy to see.
+
+(a) Write a recursive function factorial(n, depth) that returns n! and logs a line when it enters and when it leaves each call. Indent each line by two spaces per level of depth:
+
+depth is optional: when it is not passed (undefined), it is 0;
+the recursive call passes depth + 1;
+the base case is n <= 1, which returns 1;
+hint: ' '.repeat(depth) builds the indentation.
+factorial(3) returns 6 and prints:
+
+enter factorial(3)
+  enter factorial(2)
+    enter factorial(1)
+    leave factorial(1) = 1
+  leave factorial(2) = 2
+leave factorial(3) = 6
+(b) Write two more recursive functions:
+
+sumNested(array) returns the sum of all numbers in an array that can contain other arrays nested to any depth; elements that are neither numbers nor arrays are ignored;
+depthOf(value) returns how deeply arrays are nested: 0 for a value that is not an array, 1 for an array without arrays inside, 2 for an array that contains arrays without arrays inside, and so on.
+(c) The execution stack is not infinite. Write a function measureStackDepth() that calls an inner recursive function without a base case and counts the calls until the engine throws an error. Catch the error and return { depth: <number of calls>, error: <name of the error> }.
+
+sumNested([1, [2, [3, [4]]], 5]); // 15
+depthOf([1, [2, [3]]]);           // 3
+measureStackDepth();              // e.g. { depth: 10473, error: 'RangeError' }
+For example:
+
+Test	Result
+// (a) factorial(3)
+const result = factorial(3);
+console.log(result);
+enter factorial(3)
+  enter factorial(2)
+    enter factorial(1)
+    leave factorial(1) = 1
+  leave factorial(2) = 2
+leave factorial(3) = 6
+6

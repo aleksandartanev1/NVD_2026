@@ -1,0 +1,39 @@
+(a) Write the class BankAccount:
+
+every account gets a public id 'ACC-001', 'ACC-002', … from a private static counter, and a public owner set by the constructor;
+a private field #balance that starts at 0, with a getter balance (read-only: there is no setter);
+deposit(amount) and withdraw(amount), which both return this so that calls can be chained;
+both throw new Error('Amount must be a positive number') if amount is not a number greater than 0 (strings and NaN too). Put this check in a private method #validate(amount);
+withdraw throws new Error('Insufficient funds') if the amount is larger than the balance;
+every successful deposit and withdrawal is stored in a private list; history() returns a copy of it as strings such as '+100.00' and '-30.00';
+toString() returns e.g. 'ACC-001 (Ana): 70.00 EUR';
+a static method BankAccount.transfer(from, to, amount) that moves money between two accounts. If the withdrawal fails, neither account may change.
+(b) Write the class SavingsAccount that extends BankAccount. Its constructor takes (owner, rate, maxWithdrawals = 3).
+
+addInterest() adds balance * rate to the account (only if it is greater than 0) and returns this;
+withdraw(amount) is overridden: only maxWithdrawals successful withdrawals are allowed; the next one throws new Error('Withdrawal limit reached'). Failed withdrawals are not counted. Use super.withdraw(...);
+resetMonth() resets the withdrawal counter.
+Hint: #balance is private to the body of BankAccount, so SavingsAccount cannot use this.#balance; it has to use the public getter and methods. Because BankAccount.transfer calls from.withdraw(...), a transfer from a savings account automatically respects its withdrawal limit.
+
+const acc = new BankAccount('Ana');
+acc.deposit(100).withdraw(30);
+acc.balance;        // 70
+acc.history();      // ['+100.00', '-30.00']
+String(acc);        // 'ACC-001 (Ana): 70.00 EUR'
+acc.#balance;       // SyntaxError -- private!
+For example:
+
+Test	Result
+// (a) id, owner, balance, toString() and private state
+const ana = new BankAccount('Ana');
+const bojan = new BankAccount('Bojan');
+ana.deposit(100).withdraw(30);
+console.log(ana.owner, ana.balance, /^ACC-\d{3}$/.test(ana.id), Number(bojan.id.slice(4)) - Number(ana.id.slice(4)));
+console.log(String(ana).replace(ana.id, '<id>'));
+console.log(ana['#balance'], Object.keys(ana).sort().join(','));
+const balance = Object.getOwnPropertyDescriptor(BankAccount.prototype, 'balance');
+console.log(typeof balance.get, typeof balance.set);
+Ana 70 true 1
+<id> (Ana): 70.00 EUR
+undefined id,owner
+function undefined
